@@ -22,10 +22,14 @@ class TestComputerTool(unittest.TestCase):
         }
         self.assertEqual(set(valid_actions), expected_actions)
 
-    async def test_mouse_actions(self):
+    def test_mouse_actions(self):
         """Test mouse actions work properly"""
-        result = await self.tool(action='mouse_move', coordinate=(100, 100))
-        self.assertIsNotNone(result)
-        
-        result = await self.tool(action='left_click')
-        self.assertIsNotNone(result)
+        async def run_test():
+            result = await self.tool(action='mouse_move', coordinate=(100, 100))
+            self.assertIsNotNone(result)
+            
+            result = await self.tool(action='left_click')
+            self.assertIsNotNone(result)
+            
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(run_test())

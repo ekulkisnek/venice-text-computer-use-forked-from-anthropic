@@ -16,4 +16,10 @@ def run_tests():
     runner.run(suite)
 
 if __name__ == '__main__':
-    run_tests()
+    # Set up event loop for async tests
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    try:
+        run_tests()
+    finally:
+        loop.close()
