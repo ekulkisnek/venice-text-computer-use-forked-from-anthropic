@@ -1,12 +1,7 @@
-import asyncio
-import base64
 import os
 import shlex
-import shutil
 from enum import StrEnum
-from pathlib import Path
 from typing import Literal, TypedDict
-from uuid import uuid4
 
 from .base import BaseAnthropicTool, ComputerToolOptions, ToolError, ToolResult
 from .run import run
@@ -25,7 +20,6 @@ Action = Literal[
     "right_click",
     "middle_click",
     "double_click",
-    "screenshot",
     "cursor_position",
 ]
 
@@ -65,7 +59,6 @@ class ComputerTool(BaseAnthropicTool):
     height: int
     display_num: int | None
 
-    _screenshot_delay = 2.0
     _scaling_enabled = True
 
     @property
@@ -133,37 +126,14 @@ class Repl:
                 return await self.middle_click()
             case "double_click":
                 return await self.double_click()
-            case "screenshot":
-                return await self.screenshot()
             case "cursor_position":
                 return await self.cursor_position()
             case _:
                 raise ToolError(f"unknown action: {action}")
 
-    async def raw_screenshot(self) -> str:
-        path = Path(OUTPUT_DIR) / f"screenshot_{uuid4().hex}.png"
-        await run(f"mkdir -p {OUTPUT_DIR}")
-        result = await self.shell(f"gnome-screenshot -f {path} -p",
-                                  take_screenshot=False)
-        if path.exists():
-            return base64.b64encode(path.read_bytes()).decode()
-        raise Exception(f"screenshot: {result.error}")
-
-    async def shell(self, command: str, take_screenshot=True):
+    async def shell(self, command: str):
         _, stdout, stderr = await run(command)
-        base64_image = None
-
-        if take_screenshot:
-            await asyncio.sleep(self._screenshot_delay)
-            base64_image = await self.raw_screenshot()
-
-        return ToolResult(output=stdout,
-                          error=stderr,
-                          base64_image=base64_image)
-
-    async def screenshot(self) -> ToolResult:
-        screenshot = await self.raw_screenshot()
-        return ToolResult(base64_image=screenshot)
+        return ToolResult(output=stdout, error=stderr)
 
     async def mouse_move(self,
                          coordinate: tuple[int, int] | None) -> ToolResult:
