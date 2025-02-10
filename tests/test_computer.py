@@ -1,5 +1,6 @@
 
 import unittest
+import asyncio
 from computer_use_demo.tools.computer import ComputerTool, Action
 
 class TestComputerTool(unittest.TestCase):
