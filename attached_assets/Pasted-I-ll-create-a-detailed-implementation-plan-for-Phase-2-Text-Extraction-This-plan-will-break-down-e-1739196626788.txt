@@ -1,0 +1,170 @@
+I'll create a detailed implementation plan for Phase 2: Text Extraction. This plan will break down each major component into specific tasks with implementation details and validation steps.
+
+    DOM Interface Design (4-5 hours)
+
+A. Interface Foundation (1.5 hours)
+
+    Create DOMInterface class
+    Define core interface methods:
+        get_element(selector: str)
+        get_elements(selector: str)
+        query_selector(query: str)
+        query_selector_all(query: str)
+    Implement selector validation
+    Add type hints and documentation
+
+Validation:
+
+    Unit tests for each method
+    Type checking with mypy
+    Documentation coverage check
+
+B. Query Builder (1.5 hours)
+
+    Create QueryBuilder class with methods:
+        by_id(id: str)
+        by_class(class_name: str)
+        by_tag(tag_name: str)
+        by_attribute(attr: str, value: str)
+        combine(queries: List[str])
+    Add query validation
+    Implement query optimization
+
+Validation:
+
+    Test query generation
+    Verify query syntax
+    Performance testing
+
+C. Element Selection Framework (1 hour)
+
+    Implement ElementSelector class
+    Add selection strategies:
+        direct_selector
+        xpath_selector
+        css_selector
+    Create selection validation
+
+Validation:
+
+    Test each selection strategy
+    Verify error handling
+    Check selector compatibility
+
+    Page Content Implementation (3-4 hours)
+
+A. Content Extraction Core (1.5 hours)
+
+    Create ContentExtractor class
+    Implement methods:
+        extract_text()
+        extract_formatted_text()
+        extract_structured_content()
+    Add content cleaning utilities
+
+Validation:
+
+    Test extraction accuracy
+    Verify content structure
+    Check cleaning effectiveness
+
+B. Text Formatting (1 hour)
+
+    Create TextFormatter class
+    Implement formatters:
+        plain_text
+        html_to_text
+        markdown_text
+    Add special character handling
+
+Validation:
+
+    Test each format type
+    Verify character encoding
+    Check format consistency
+
+C. Content Processing (1 hour)
+
+    Create ContentProcessor class
+    Add processing methods:
+        remove_scripts
+        clean_whitespace
+        normalize_text
+        handle_special_elements
+
+Validation:
+
+    Test processing steps
+    Verify content integrity
+    Check performance impact
+
+    Element Text Method Implementation (4-5 hours)
+
+A. Core Element Text (1.5 hours)
+
+    Create ElementTextExtractor class
+    Implement methods:
+        get_text()
+        get_inner_text()
+        get_text_content()
+    Add text normalization
+
+Validation:
+
+    Test extraction methods
+    Verify text accuracy
+    Check normalization
+
+B. Element Targeting (1.5 hours)
+
+    Create ElementTargeting class
+    Implement targeting strategies:
+        single_element
+        multiple_elements
+        nested_elements
+    Add targeting validation
+
+Validation:
+
+    Test targeting accuracy
+    Verify element selection
+    Check error cases
+
+C. Advanced Text Features (1 hour)
+
+    Add support for:
+        text_with_formatting()
+        text_with_attributes()
+        structured_text()
+    Implement caching mechanism
+
+Validation:
+
+    Test advanced features
+    Verify caching
+    Performance testing
+
+Implementation Sequence:
+
+    Start with DOM Interface:
+
+computer_use_demo/tools/dom_interface.py
+Create DOM interface base
+
+    Add Query Builder:
+
+computer_use_demo/tools/query_builder.py
+Create query builder
+
+    Create Element Text Extractor:
+
+computer_use_demo/tools/element_text.py
+Create element text extractor
+
+Next Steps and Testing Plan:
+
+    Implement concrete classes for each interface
+    Add unit tests for each component
+    Create integration tests
+    Add performance benchmarks
+    Document API and usage examples
