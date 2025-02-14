@@ -111,6 +111,7 @@ async def main():
                 st.session_state.provider = st.session_state.provider_radio
                 st.session_state.auth_validated = False
 
+        st.text_input("API Key", type="password", key="api_key_input")
         st.text_input("Model", key="model")
 
         st.number_input(
