@@ -92,8 +92,16 @@ class ComputerTool(BaseAnthropicTool):
         action: Action,
         text: str | None = None,
         coordinate: tuple[int, int] | None = None,
+        url: str | None = None,
         **kwargs,
     ):
+        from .browser_manager import browser_manager
+        
+        if not browser_manager.is_running():
+            await browser_manager.start()
+            
+        if url and action == "type":
+            browser_manager.current_url = url
         r = Repl()
         return await r(action=action, text=text, coordinate=coordinate)
 
