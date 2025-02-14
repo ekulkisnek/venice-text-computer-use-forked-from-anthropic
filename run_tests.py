@@ -44,17 +44,6 @@ def run_all_tests():
 if __name__ == '__main__':
     run_all_tests()
 
-def run_all_tests():
-    """Run all tests including original ones"""
-    from tests import TestComputerTool, TestToolResult
-    
-    suite = unittest.TestSuite()
-    
-    # Add all test cases
-    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestComputerTool))
-    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestToolResult))
-    run_phase2_tests()
-
 if __name__ == '__main__':
     # Set up event loop for async tests
     loop = asyncio.new_event_loop()
