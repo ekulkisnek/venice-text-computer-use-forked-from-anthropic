@@ -73,18 +73,9 @@ class ComputerTool(BaseAnthropicTool):
 
     def __init__(self):
         super().__init__()
-
-        # self.width = int(os.getenv("WIDTH") or 0)
-        # self.height = int(os.getenv("HEIGHT") or 0)
-        # assert self.width and self.height, "WIDTH, HEIGHT must be set"
-        if (display_num := os.getenv("DISPLAY_NUM")) is not None:
-            self.display_num = int(display_num)
-            self._display_prefix = f"DISPLAY=:{self.display_num} "
-        else:
-            self.display_num = None
-            self._display_prefix = ""
-
-        self.xdotool = f"{self._display_prefix}xdotool"
+        self.display_num = None
+        self._display_prefix = ""
+        self.xdotool = "xdotool"
 
     async def __call__(
         self,
