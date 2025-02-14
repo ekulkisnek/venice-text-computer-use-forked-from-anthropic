@@ -17,15 +17,12 @@ class BrowserManager:
             return
             
         try:
-            # Start Firefox with specific window position and size
-            # Start Xvfb first
-            xvfb_cmd = ["Xvfb", f":{self.display_num}", "-screen", "0", "1024x768x24"]
-            await asyncio.create_subprocess_exec(*xvfb_cmd)
-            await asyncio.sleep(1)  # Wait for Xvfb to start
-            
-            # Then start Firefox using absolute path
-            firefox_path = "/nix/store/firefox-esr/bin/firefox-esr"
+            # Start Firefox with Xvfb
+            firefox_path = "/nix/store/0ya2chmmw7vjdr39svipjj8gc8dxh35a-firefox-115.12.0esr/bin/firefox-esr"
             self.process = await asyncio.create_subprocess_exec(
+                "xvfb-run",
+                "-a",
+                "-s", f"-screen 0 1024x768x24 -{self.display_num}",
                 firefox_path,  # Use absolute path to firefox-esr
                 "--width=800",
                 "--height=600",
