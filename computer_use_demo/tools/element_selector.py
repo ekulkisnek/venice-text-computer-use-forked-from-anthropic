@@ -33,6 +33,16 @@ class ElementSelector:
         }
         self._state_tracker = ElementStateTracker()
         
+    def __init__(self, dom_interface=None):
+        self._dom = dom_interface
+        self._strategies = {
+            'id': self._id_selector,
+            'class': self._class_selector,
+            'xpath': self._xpath_selector,
+            'css': self._css_selector
+        }
+        self._state_tracker = ElementStateTracker()
+
     def select(self, strategy: str, selector: str) -> Optional[DOMElement]:
         """Select element using specified strategy."""
         if strategy not in self._strategies:
@@ -46,21 +56,17 @@ class ElementSelector:
         """Select all matching elements using specified strategy."""
         elements = []
         if strategy == 'class':
-            elements = self._class_selector_all(selector)
-        elif strategy == 'xpath':
-            elements = self._xpath_selector_all(selector)
+            elements = [e for e in self._dom.elements if 'class' in e.attributes and selector in e.attributes['class']]
         return elements
 
     def _id_selector(self, id_: str) -> Optional[DOMElement]:
         """Select element by ID."""
-        try:
-            return DOMElement(
-                tag="div",  # Placeholder - actual implementation would get real tag
-                attributes={"id": id_},
-                content=""
-            )
-        except Exception as e:
-            raise ValueError(f"Invalid ID selector: {e}")
+        if not self._dom:
+            return None
+        for element in self._dom.elements:
+            if 'id' in element.attributes and element.attributes['id'] == id_:
+                return element
+        return None
 
     def _class_selector(self, class_name: str) -> Optional[DOMElement]:
         """Select first element with given class."""

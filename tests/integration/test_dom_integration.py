@@ -10,7 +10,7 @@ import os
 class TestDOMIntegration(unittest.TestCase):
     def setUp(self):
         self.dom = DOMInterface()
-        self.selector = ElementSelector()
+        self.selector = ElementSelector(self.dom)
         
     def test_dom_element_selection_integration(self):
         # Create test element and add to DOM
