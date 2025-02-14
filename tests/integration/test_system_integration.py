@@ -1,6 +1,6 @@
 
 import unittest
-from computer_use_demo.tools.dom_interface import DOMInterface
+from computer_use_demo.tools.dom_interface import DOMInterface, DOMElement
 from computer_use_demo.tools.element_selector import ElementSelector
 from computer_use_demo.tools.content_extractor import ContentExtractor
 from computer_use_demo.tools.element_text import ElementTextExtractor

@@ -9,7 +9,7 @@ class ContentExtractor:
         """Clean extracted text."""
         if not text:
             return ""
-        return text.strip()
+        return " ".join(text.split())
         
     def extract_text(self) -> str:
         """Extract text content from element."""
