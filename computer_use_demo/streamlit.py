@@ -56,7 +56,7 @@ class Sender(StrEnum):
 async def setup_state():
     if "firefox" not in st.session_state:
         st.session_state.firefox = await asyncio.create_subprocess_exec(
-            "firefox", "--display=:0")
+            "firefox")
     if "messages" not in st.session_state:
         st.session_state.messages = []
     if "api_key" not in st.session_state:
