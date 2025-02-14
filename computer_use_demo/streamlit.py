@@ -56,9 +56,7 @@ class Sender(StrEnum):
 async def setup_state():
     if "firefox" not in st.session_state:
         st.session_state.firefox = await asyncio.create_subprocess_exec(
-            "firefox")
-        await asyncio.sleep(2)  # Wait for Firefox to start
-        subprocess.run("DISPLAY=:0 xdotool search --name 'Mozilla Firefox' windowactivate windowraise", shell=True)
+            "firefox", "--display=:0")
     if "messages" not in st.session_state:
         st.session_state.messages = []
     if "api_key" not in st.session_state:
