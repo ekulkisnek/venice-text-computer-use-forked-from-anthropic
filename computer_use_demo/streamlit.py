@@ -57,6 +57,8 @@ async def setup_state():
     if "firefox" not in st.session_state:
         st.session_state.firefox = await asyncio.create_subprocess_exec(
             "firefox")
+        await asyncio.sleep(2)  # Wait for Firefox to start
+        subprocess.run("DISPLAY=:0 xdotool search --name 'Mozilla Firefox' windowactivate windowraise", shell=True)
     if "messages" not in st.session_state:
         st.session_state.messages = []
     if "api_key" not in st.session_state:
@@ -94,11 +96,7 @@ def _reset_model():
 
 async def main():
     """Render loop for streamlit"""
-    # Launch Firefox immediately
     subprocess.run("./start_all.sh", shell=True)  # noqa: ASYNC221
-    await asyncio.sleep(2)  # Wait for Firefox to start
-    subprocess.run("DISPLAY=:0 xdotool search --name 'Mozilla Firefox' windowactivate windowraise windowsize 100% 100%", shell=True)
-    subprocess.run("DISPLAY=:0 xdotool search --name 'Mozilla Firefox' windowmove 0 0", shell=True)
     await setup_state()
 
     st.markdown(STREAMLIT_STYLE, unsafe_allow_html=True)
