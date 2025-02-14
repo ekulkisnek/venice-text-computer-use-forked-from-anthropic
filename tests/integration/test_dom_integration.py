@@ -41,6 +41,7 @@ class TestDOMIntegration(unittest.TestCase):
                 attributes={"id": f"test-{_}", "class": "test"},
                 content="Test Content"
             )
+            self.dom.add_element(element)
             selected = self.selector.select('id', f'test-{_}')
             extractor = ContentExtractor(selected)
             content = extractor.extract_text()

@@ -8,7 +8,13 @@ from computer_use_demo.tools.element_text import ElementTextExtractor
 class TestSystemIntegration(unittest.TestCase):
     def setUp(self):
         self.dom = DOMInterface()
-        self.selector = ElementSelector()
+        self.selector = ElementSelector(self.dom)
+        self.test_element = DOMElement(
+            tag="div",
+            attributes={"id": "test-id"},
+            content="Test Content"
+        )
+        self.dom.add_element(self.test_element)
         
     def test_full_system_flow(self):
         # Test complete flow from selection to text extraction
