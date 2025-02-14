@@ -91,13 +91,21 @@ def _reset_model():
 
 async def main():
     """Render loop for streamlit"""
-    # Launch Firefox in background before anything else
-    subprocess.run("chmod +x ./start_all.sh", shell=True)  # noqa: ASYNC221
-    subprocess.run("./start_all.sh", shell=True)  # noqa: ASYNC221
-    await asyncio.sleep(3)  # Give Firefox time to start
-    # Then setup UI state
-    await setup_state()
-    st.markdown(STREAMLIT_STYLE, unsafe_allow_html=True)
+    try:
+        # Make script executable and cleanup existing processes
+        subprocess.run("chmod +x ./start_all.sh", shell=True, check=True)
+        subprocess.run("pkill -f firefox; pkill -f Xvfb; pkill -f tint2", shell=True)
+        await asyncio.sleep(1)
+        
+        # Launch Firefox and wait for initialization
+        process = subprocess.Popen("./start_all.sh", shell=True)
+        await asyncio.sleep(5)  # Give processes time to start
+        
+        # Setup UI state
+        await setup_state()
+        st.markdown(STREAMLIT_STYLE, unsafe_allow_html=True)
+    except Exception as e:
+        st.error(f"Initialization error: {e}")
 
     st.title("Claude Computer Use Demo")
 
