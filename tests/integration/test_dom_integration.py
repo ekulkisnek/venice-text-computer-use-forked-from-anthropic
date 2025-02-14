@@ -13,12 +13,13 @@ class TestDOMIntegration(unittest.TestCase):
         self.selector = ElementSelector()
         
     def test_dom_element_selection_integration(self):
-        # Create test element
+        # Create test element and add to DOM
         element = DOMElement(
             tag="div",
             attributes={"id": "test-id", "class": "test-class"},
             content="Test Content"
         )
+        self.dom.add_element(element)
         
         # Test element selection
         selected = self.selector.select('id', 'test-id')

@@ -60,7 +60,6 @@ if __name__ == '__main__':
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     try:
-        # Change this to run_all_tests() if you want to run everything
-        run_phase2_tests()
+        run_all_tests()
     finally:
         loop.close()
