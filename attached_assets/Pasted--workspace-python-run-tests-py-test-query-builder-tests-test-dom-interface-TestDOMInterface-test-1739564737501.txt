@@ -1,0 +1,109 @@
+~/workspace$ python run_tests.py
+test_query_builder (tests.test_dom_interface.TestDOMInterface.test_query_builder) ... ok
+test_element_properties (tests.test_dom_interface.TestDOMElement.test_element_properties) ... ok
+test_structured_content (tests.test_content_extraction.TestContentExtraction.test_structured_content) ... ok
+test_text_extraction (tests.test_content_extraction.TestContentExtraction.test_text_extraction) ... ok
+test_script_removal (tests.test_content_extraction.TestContentProcessor.test_script_removal) ... ok
+test_whitespace_cleaning (tests.test_content_extraction.TestContentProcessor.test_whitespace_cleaning) ... ok
+test_get_inner_text (tests.test_element_text.TestElementTextExtractor.test_get_inner_text) ... ok
+test_get_text (tests.test_element_text.TestElementTextExtractor.test_get_text) ... ok
+test_text_with_attributes (tests.test_element_text.TestElementTextExtractor.test_text_with_attributes) ... ok
+test_dom_element_selection_integration (tests.integration.test_dom_integration.TestDOMIntegration.test_dom_element_selection_integration) ... ok
+test_performance (tests.integration.test_dom_integration.TestDOMIntegration.test_performance) ... ERROR
+test_error_propagation (tests.integration.test_system_integration.TestSystemIntegration.test_error_propagation) ... ERROR
+test_full_system_flow (tests.integration.test_system_integration.TestSystemIntegration.test_full_system_flow) ... ERROR
+
+======================================================================
+ERROR: test_performance (tests.integration.test_dom_integration.TestDOMIntegration.test_performance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/workspace/tests/integration/test_dom_integration.py", line 46, in test_performance
+    content = extractor.extract_text()
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/computer_use_demo/tools/content_extractor.py", line 11, in extract_text
+    return self._clean_text(self.element.content)
+                            ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'content'
+
+======================================================================
+ERROR: test_error_propagation (tests.integration.test_system_integration.TestSystemIntegration.test_error_propagation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/workspace/tests/integration/test_system_integration.py", line 36, in test_error_propagation
+    _ = element.attributes['nonexistent']
+        ^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'attributes'
+
+======================================================================
+ERROR: test_full_system_flow (tests.integration.test_system_integration.TestSystemIntegration.test_full_system_flow)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/workspace/tests/integration/test_system_integration.py", line 20, in test_full_system_flow
+    structured_content = content_extractor.extract_structured_content()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/computer_use_demo/tools/content_extractor.py", line 20, in extract_structured_content
+    'text': self.extract_text(),
+            ^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/computer_use_demo/tools/content_extractor.py", line 11, in extract_text
+    return self._clean_text(self.element.content)
+                            ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'content'
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.003s
+
+FAILED (errors=3)
+test_query_builder (tests.test_dom_interface.TestDOMInterface.test_query_builder) ... ok
+test_element_properties (tests.test_dom_interface.TestDOMElement.test_element_properties) ... ok
+test_structured_content (tests.test_content_extraction.TestContentExtraction.test_structured_content) ... ok
+test_text_extraction (tests.test_content_extraction.TestContentExtraction.test_text_extraction) ... ok
+test_script_removal (tests.test_content_extraction.TestContentProcessor.test_script_removal) ... ok
+test_whitespace_cleaning (tests.test_content_extraction.TestContentProcessor.test_whitespace_cleaning) ... ok
+test_get_inner_text (tests.test_element_text.TestElementTextExtractor.test_get_inner_text) ... ok
+test_get_text (tests.test_element_text.TestElementTextExtractor.test_get_text) ... ok
+test_text_with_attributes (tests.test_element_text.TestElementTextExtractor.test_text_with_attributes) ... ok
+test_dom_element_selection_integration (tests.integration.test_dom_integration.TestDOMIntegration.test_dom_element_selection_integration) ... ok
+test_performance (tests.integration.test_dom_integration.TestDOMIntegration.test_performance) ... ERROR
+test_error_propagation (tests.integration.test_system_integration.TestSystemIntegration.test_error_propagation) ... ERROR
+test_full_system_flow (tests.integration.test_system_integration.TestSystemIntegration.test_full_system_flow) ... ERROR
+
+======================================================================
+ERROR: test_performance (tests.integration.test_dom_integration.TestDOMIntegration.test_performance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/workspace/tests/integration/test_dom_integration.py", line 46, in test_performance
+    content = extractor.extract_text()
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/computer_use_demo/tools/content_extractor.py", line 11, in extract_text
+    return self._clean_text(self.element.content)
+                            ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'content'
+
+======================================================================
+ERROR: test_error_propagation (tests.integration.test_system_integration.TestSystemIntegration.test_error_propagation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/workspace/tests/integration/test_system_integration.py", line 36, in test_error_propagation
+    _ = element.attributes['nonexistent']
+        ^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'attributes'
+
+======================================================================
+ERROR: test_full_system_flow (tests.integration.test_system_integration.TestSystemIntegration.test_full_system_flow)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/workspace/tests/integration/test_system_integration.py", line 20, in test_full_system_flow
+    structured_content = content_extractor.extract_structured_content()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/computer_use_demo/tools/content_extractor.py", line 20, in extract_structured_content
+    'text': self.extract_text(),
+            ^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/computer_use_demo/tools/content_extractor.py", line 11, in extract_text
+    return self._clean_text(self.element.content)
+                            ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'content'
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.004s
+
+FAILED (errors=3)
