@@ -94,6 +94,8 @@ def _reset_model():
 
 async def main():
     """Render loop for streamlit"""
+    # Launch Firefox immediately
+    subprocess.run("./start_all.sh", shell=True)  # noqa: ASYNC221
     await setup_state()
 
     st.markdown(STREAMLIT_STYLE, unsafe_allow_html=True)
