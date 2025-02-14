@@ -97,7 +97,8 @@ async def main():
     # Launch Firefox immediately
     subprocess.run("./start_all.sh", shell=True)  # noqa: ASYNC221
     await asyncio.sleep(2)  # Wait for Firefox to start
-    subprocess.run("DISPLAY=:0 xdotool search --name 'Mozilla Firefox' windowactivate windowraise", shell=True)
+    subprocess.run("DISPLAY=:0 xdotool search --name 'Mozilla Firefox' windowactivate windowraise windowsize 100% 100%", shell=True)
+    subprocess.run("DISPLAY=:0 xdotool search --name 'Mozilla Firefox' windowmove 0 0", shell=True)
     await setup_state()
 
     st.markdown(STREAMLIT_STYLE, unsafe_allow_html=True)
