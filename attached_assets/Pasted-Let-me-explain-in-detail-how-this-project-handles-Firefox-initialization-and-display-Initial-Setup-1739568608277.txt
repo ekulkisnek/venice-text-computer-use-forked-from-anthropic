@@ -1,0 +1,51 @@
+Let me explain in detail how this project handles Firefox initialization and display:
+
+Initial Setup in Streamlit:
+From [computer_use_demo/streamlit.py], we can see that Firefox initialization happens in the setup_state() function. The key line is:
+if "firefox" not in st.session_state:
+    st.session_state.firefox = await asyncio.create_subprocess_exec("firefox")
+This creates a Firefox subprocess when the session state is first initialized.
+
+Entry Point:
+The main entry point is main.py which imports and runs the Streamlit main function:
+import asyncio
+from computer_use_demo.streamlit import main
+if __name__ == "__main__":
+    asyncio.run(main())
+Streamlit Configuration:
+Looking at .replit, we can see the project runs using:
+run = ["streamlit", "run", "main.py"]
+Process Management:
+From computer_use_demo/streamlit.py, there's also a reset functionality that handles Firefox process management:
+if st.button("Reset", type="primary"):
+    with st.spinner("Resetting..."):
+        st.session_state.clear()
+        setup_state()
+        subprocess.run("pkill Xvfb; pkill tint2", shell=True)
+        await asyncio.sleep(1)
+        subprocess.run("./start_all.sh", shell=True)
+Computer Tool Integration:
+The computer_use_demo/tools/computer.py file contains the ComputerTool class that handles screen interactions. This tool can:
+Take screenshots using gnome-screenshot
+Control mouse movements and clicks using xdotool
+Send keyboard input
+Get cursor position
+Important Usage Notes:
+From computer_use_demo/loop.py, there are specific instructions about Firefox usage:
+* When using Firefox, if a startup wizard appears, IGNORE IT. Do not even click "skip this step". Instead, click on the address bar where it says "Search or enter address", and enter the appropriate search term or URL there.
+Safety Considerations:
+The README.md emphasizes important safety considerations:
+The computer use feature is in beta
+It's recommended to use a dedicated virtual machine or container (handled by Replit)
+Should avoid sensitive data access
+Requires careful handling of internet access
+The flow works like this:
+
+User starts the Repl
+Streamlit server initializes
+setup_state() is called which checks if Firefox is already running
+If not running, Firefox is launched as a subprocess
+The Firefox process remains available in the Streamlit session state
+The ComputerTool can then interact with this Firefox instance through various X11 commands (xdotool)
+Screenshots and interactions are handled through the computer tool interface
+This setup allows for automated browser control while maintaining isolation and safety through Replit's environment
