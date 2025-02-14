@@ -18,8 +18,14 @@ class BrowserManager:
             
         try:
             # Start Firefox with specific window position and size
+            # Start Xvfb first
+            xvfb_cmd = f"Xvfb :{self.display_num} -screen 0 1024x768x24 &"
+            await asyncio.create_subprocess_shell(xvfb_cmd)
+            await asyncio.sleep(1)  # Wait for Xvfb to start
+            
+            # Then start Firefox
             self.process = await asyncio.create_subprocess_exec(
-                "firefox",
+                "firefox-esr",  # Use firefox-esr which is available in nix
                 "--width=800",
                 "--height=600",
                 "about:blank",
