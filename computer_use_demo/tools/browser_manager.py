@@ -17,8 +17,13 @@ class BrowserManager:
             return
             
         try:
+            # Start Firefox with specific window position and size
             self.process = await asyncio.create_subprocess_exec(
                 "firefox",
+                "--width=800",
+                "--height=600",
+                "about:blank",
+                env={"DISPLAY": f":{self.display_num}"},
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE
             )
