@@ -1,3 +1,45 @@
+# Issues I faced in reorganizing this to be all text based: 
+
+    Firefox Integration Issues:
+
+    Problems with Firefox startup wizard appearing and interrupting automation
+    Need for specific handling of Firefox startup with flags like --kiosk and --no-remote
+    Special instructions needed for URL entry and navigation
+
+    PDF Handling Complications:
+
+    Initial attempts to read PDFs through screenshots were inefficient
+    Had to pivot to a different approach using curl to download PDFs
+    Required additional tools (pdftotext) for proper PDF content extraction
+
+    DOM Interface Testing:
+
+    Multiple test failures visible in the logs for DOM interface tests
+    Issues with query builder implementation as seen in test_dom_interface.py
+    Integration test complexities between DOM elements and content extraction
+
+    Content Extraction Challenges:
+
+    Had to handle different types of content (text, PDFs, HTML) with different strategies
+    Required multiple extraction tools and approaches
+    Complex integration between DOM elements and content processors
+
+    Display/X Server Setup:
+
+    Required specific configuration with Xvfb for headless operation
+    Needed careful process management (killing existing processes)
+    Display configuration dependencies between X server and window manager
+
+    Asynchronous Operation:
+
+    Complexity in handling async operations in Streamlit
+    Message handling and state management challenges
+    Tool output and API response callback coordination
+
+The project seems to have evolved from simpler approaches to more robust solutions, particularly around content extraction and browser automation.
+
+
+# Old readme
 # Anthropic Computer Use Demo on Replit
 
 ## Getting started
